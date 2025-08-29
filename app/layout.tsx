@@ -1,88 +1,47 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { Providers } from './providers';
-import Navigation from '@/components/shared/Navigation';
-import { Footer } from '@/components/shared/Footer';
-import './globals.css';
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
+import { AuthProvider } from "@/components/auth/auth-provider"
+import { Toaster } from "@/components/ui/toaster"
 
-const inter = Inter({ 
-  subsets: ['latin'],
-  variable: '--font-inter',
-});
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: {
-    default: 'GREIA - Global Property & Services Platform',
-    template: '%s | GREIA'
-  },
-  description: 'Your global property and services marketplace. Connecting people with their perfect homes and trusted professionals worldwide.',
-  keywords: ['property', 'real estate', 'services', 'global', 'marketplace', 'professionals', 'booking', 'CRM'],
-  authors: [{ name: 'GREIA Team' }],
-  creator: 'GREIA',
-  publisher: 'GREIA',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+  title: "GREIA - Global Real Estate & Investment Alliance",
+  description: "Your global gateway to properties, services, and professional connections worldwide.",
+  keywords: "real estate, properties, global, investment, services, professionals",
+  authors: [{ name: "GREIA Team" }],
   openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://greia-platform-2.lindy.site/',
-    siteName: 'GREIA',
-    title: 'GREIA - Global Property & Services Platform',
-    description: 'Your global property and services marketplace. Connecting people with their perfect homes and trusted professionals worldwide.',
-    images: [
-      {
-        url: '/images/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'GREIA Platform',
-      },
-    ],
+    title: "GREIA - Global Real Estate & Investment Alliance",
+    description: "Your global gateway to properties, services, and professional connections worldwide.",
+    url: "https://greia-platform-2.lindy.site",
+    siteName: "GREIA",
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'GREIA - Global Property & Services Platform',
-    description: 'Your global property and services marketplace. Connecting people with their perfect homes and trusted professionals worldwide.',
-    images: ['/images/og-image.png'],
-    creator: '@GREIA',
+    card: "summary_large_image",
+    title: "GREIA - Global Real Estate & Investment Alliance",
+    description: "Your global gateway to properties, services, and professional connections worldwide.",
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
-  },
-  manifest: '/site.webmanifest',
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className={`${inter.className} antialiased min-h-screen flex flex-col`}>
-        <Providers>
-          <Navigation />
-          <main className="flex-1 pt-16">
-            {children}
-          </main>
-          <Footer />
-        </Providers>
+    <html lang="en">
+      <body className={inter.className}>
+        <AuthProvider>
+          {children}
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
-  );
+  )
 }
